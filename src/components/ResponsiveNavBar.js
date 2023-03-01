@@ -13,8 +13,14 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
 
-const pages = ["Dashboard", "Graphics"];
-const settings = ["Profile", "Account", "Dashboard", "Logout"];
+const pages = [
+	{ name: "Dashboard", path: "dashboard" },
+	{ name: "Graphics", path: "graphics" },
+	{ name: "Traning", path: "traning" },
+	{ name: "Model", path: "model" },
+];
+
+const settings = ["Profile"];
 
 function ResponsiveAppBar() {
 	const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -33,6 +39,10 @@ function ResponsiveAppBar() {
 
 	const handleCloseUserMenu = () => {
 		setAnchorElUser(null);
+	};
+
+	const changeRoute = (path) => {
+		window.location.href = "/" + path;
 	};
 
 	return (
@@ -88,8 +98,14 @@ function ResponsiveAppBar() {
 							}}
 						>
 							{pages.map((page) => (
-								<MenuItem key={page} onClick={handleCloseNavMenu}>
-									<Typography textAlign="center">{page}</Typography>
+								<MenuItem
+									key={page.name}
+									onClick={() => {
+										handleCloseNavMenu();
+										changeRoute(page.path);
+									}}
+								>
+									<Typography textAlign="center">{page.name}</Typography>
 								</MenuItem>
 							))}
 						</Menu>
@@ -116,11 +132,14 @@ function ResponsiveAppBar() {
 					<Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
 						{pages.map((page) => (
 							<Button
-								key={page}
-								onClick={handleCloseNavMenu}
+								key={page.name}
+								onClick={() => {
+									handleCloseNavMenu();
+									changeRoute(page.path);
+								}}
 								sx={{ my: 2, color: "white", display: "block" }}
 							>
-								{page}
+								{page.name}
 							</Button>
 						))}
 					</Box>
