@@ -1,0 +1,3 @@
+const serializeDataToChart = () => {};
+
+export { serializeDataToChart };
